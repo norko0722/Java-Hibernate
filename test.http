@@ -1,0 +1,7 @@
+### Test Application Status
+GET http://localhost:8080/api/test/status
+Accept: application/json
+
+### Test Database Connection
+GET http://localhost:8080/api/test/database
+Accept: application/json 
