@@ -1,57 +1,67 @@
-# Meeting Reservation System
+# Rezervačný Systém pre Zasadačky
 
-## Popis projektu
-Meeting Reservation System je webová aplikácia pre správu a rezerváciu zasedacích miestností. Umožňuje používateľom rezervovať miestnosti, spravovať vybavenie a organizovať stretnutia.
+Tento projekt je RESTful webová aplikácia vytvorená v rámci školského zadania. Aplikácia slúži ako backend pre systém na správu a rezerváciu zasadacích miestností vo firme. Umožňuje používateľom vytvárať, spravovať a zobrazovať rezervácie, spravovať miestnosti, ich vybavenie a používateľské účty.
 
-### Hlavné funkcie
-- Správa zasedacích miestností (pridávanie, úprava, mazanie)
-- Rezervácia miestností s možnosťou výberu dátumu a času
-- Správa používateľov a ich rolí
-- Správa vybavenia miestností
-- Prehľad rezervácií a histórie
+Celé API je navrhnuté tak, aby bolo logické, škálovateľné a ľahko použiteľné pre potenciálnu klientskú (frontend) aplikáciu.
 
-### Technické požiadavky
-- Java 17
-- Spring Boot 3.2.2
-- Hibernate
-- PostgreSQL
-- Maven
+## Kľúčové Funkcie
 
-### Spustenie aplikácie
-1. Naklonujte repozitár
-2. Nastavte databázu v `application.properties`
-3. Spustite aplikáciu príkazom: `mvn spring-boot:run`
-4. Aplikácia bude dostupná na: `http://localhost:8080`
+* **Správa Používateľov:** Kompletné CRUD operácie (vytvorenie, čítanie, úprava, mazanie) pre používateľov systému.
+* **Správa Miestností:** CRUD operácie pre zasadacie miestnosti, vrátane ich kapacity, lokácie a stavu (aktívna/neaktívna).
+* **Správa Vybavenia:** Samostatná správa vybavenia (projektory, tabule, atď.), ktoré môže byť následne priradené ku konkrétnym miestnostiam.
+* **Tvorba a Správa Rezervácií:** Komplexná logika pre vytváranie a úpravu rezervácií s definovaným časom, účelom, organizátorom a zoznamom účastníkov.
+* **Inteligentná Správa Účastníkov:** Počet účastníkov v rezervácii sa počíta automaticky a systém bráni duplicitnému pridaniu organizátora medzi účastníkov.
+* **API Dokumentácia:** Automaticky generovaná a interaktívna dokumentácia všetkých endpointov pomocou SpringDoc OpenAPI (Swagger).
 
-### API Endpointy
-1. Správa miestností
-   - GET /api/rooms - zoznam všetkých miestností
-   - POST /api/rooms - vytvorenie novej miestnosti
-   - PUT /api/rooms/{id} - úprava miestnosti
-   - GET /api/rooms/{id} - detail miestnosti
+## Použité Technológie
 
-2. Správa rezervácií
-   - GET /api/reservations - zoznam rezervácií
-   - POST /api/reservations - vytvorenie rezervácie
-   - PUT /api/reservations/{id} - úprava rezervácie
-   - GET /api/reservations/{id} - detail rezervácie
+* **Java 17**
+* **Spring Boot 3.2.2**
+    * Spring Web
+    * Spring Data JPA
+    * Spring Boot Starter Validation
+* **Hibernate** (ako JPA provider)
+* **SQLite** (pre lokálnu databázu)
+* **Maven** (pre správu závislostí a build)
+* **SpringDoc OpenAPI** (pre generovanie Swagger UI)
+* **Lombok** (pre zjednodušenie kódu)
 
-3. Správa používateľov
-   - GET /api/users - zoznam používateľov
-   - POST /api/users - registrácia používateľa
-   - PUT /api/users/{id} - úprava používateľa
+## API Dokumentácia (Swagger UI)
 
-4. Správa vybavenia
-   - GET /api/equipment - zoznam vybavenia
-   - POST /api/equipment - pridanie vybavenia
-   - PUT /api/equipment/{id} - úprava vybavenia
+Interaktívna dokumentácia všetkých dostupných API endpointov je generovaná automaticky a je dostupná po spustení aplikácie.
 
-### Databázový model
-Aplikácia používa nasledujúce entity:
-- MeetingRoom - zasedacie miestnosti
-- Reservation - rezervácie
-- User - používatelia
-- Equipment - vybavenie miestností
+* **Lokálne:** [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+* **Nasadená verzia:** https://java-hibernate.onrender.com/swagger-ui/index.html#
 
-### Dokumentácia API
-API dokumentácia je dostupná na: `http://localhost:8080/swagger-ui.html`
+## Ako Spustiť Aplikáciu Lokálne
+
+Pre spustenie projektu na vašom počítači postupujte podľa nasledujúcich krokov.
+
+### Požiadavky
+* Java Development Kit (JDK) - verzia 17 alebo novšia
+* Apache Maven
+
+### Inštalácia a Spustenie
+1.  Naklonujte si tento repozitár:
+    ```bash
+    git clone https://github.com/norko0722/Java-Hibernate
+    ```
+2.  Prejdite do adresára projektu:
+    ```bash
+    cd java-hibernate
+    ```
+3.  Spustite aplikáciu pomocou Mavenu:
+    ```bash
+    mvn spring-boot:run
+    ```
+4.  Aplikácia bude bežať na adrese [http://localhost:8080](http://localhost:8080). Pri prvom spustení sa v koreňovom adresári automaticky vytvorí databázový súbor `meeting_reservation.db` a naplní sa počiatočnými dátami.
+
+## Nasadená Aplikácia (Deployment)
+
+Aplikácia je nasadená a verejne dostupná na nasledujúcej URL adrese:
+
+**URL Aplikácie:** https://java-hibernate.onrender.com/
+
+## Autor
+
+* **[Norbert Balucha]**
