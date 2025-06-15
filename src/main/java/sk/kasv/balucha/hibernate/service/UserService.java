@@ -1,49 +1,45 @@
 package sk.kasv.balucha.hibernate.service;
 
-import sk.kasv.balucha.hibernate.entities.User;
-import sk.kasv.balucha.hibernate.dao.UserDAO;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.kasv.balucha.hibernate.dao.AppDAO;
+import sk.kasv.balucha.hibernate.entities.User;
 
 import java.util.List;
 
 @Service
 public class UserService {
-    private final UserDAO userDAO;
+    private AppDAO appDAO;
 
     @Autowired
-    public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    public UserService(AppDAO appDAO) {
+        this.appDAO = appDAO;
     }
 
-    public List<User> getAllUsers() {
-        return userDAO.findAll();
+    public User saveUser(User user) {
+        appDAO.saveUser(user);
+        return user;
     }
 
-    public User getUserById(Long id) {
-        return userDAO.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with id: " + id));
+    public User updateUser(User user) {
+        appDAO.updateUser(user);
+        return user;
     }
 
-    public User createUser(User user) {
-        return userDAO.save(user);
+    public User findUserById(int id) {
+        return appDAO.findUserById(id);
     }
 
-    public User updateUser(Long id, User userDetails) {
-        User user = getUserById(id);
-        user.setFirstName(userDetails.getFirstName());
-        user.setLastName(userDetails.getLastName());
-        user.setEmail(userDetails.getEmail());
-        user.setPassword(userDetails.getPassword());
-        user.setRole(userDetails.getRole());
-        return userDAO.save(user);
+    public List<User> findAllUsers() {
+        return appDAO.findAllUsers();
     }
 
-    public void deleteUser(Long id) {
-        if (!userDAO.existsById(id)) {
-            throw new EntityNotFoundException("User not found with id: " + id);
+    public boolean deleteUser(int id) {
+        User user = findUserById(id);
+        if (user != null) {
+            appDAO.deleteUser(user);
+            return true;
         }
-        userDAO.deleteById(id);
+        return false;
     }
 } 

@@ -1,9 +1,8 @@
 package sk.kasv.balucha.hibernate.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @Entity
@@ -11,7 +10,7 @@ import java.util.Set;
 public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
 
     @Column(nullable = false)
     private String name;
@@ -22,6 +21,41 @@ public class Equipment {
     @Column(nullable = false)
     private Boolean isAvailable = true;
 
-    @ManyToMany(mappedBy = "equipment")
-    private Set<MeetingRoom> rooms = new HashSet<>();
-} 
+
+    @ManyToOne
+    @JoinColumn(name = "meeting_room_id")
+    @JsonBackReference
+    private MeetingRoom meetingRoom;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public MeetingRoom getMeetingRoom() {
+        return meetingRoom;
+    }
+
+    public void setMeetingRoom(MeetingRoom meetingRoom) {
+        this.meetingRoom = meetingRoom;
+    }
+}
